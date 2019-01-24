@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     private fun getSampleRows(numSections: Int): List<ContentAdapter.IRow> {
         val rows = mutableListOf<ContentAdapter.IRow>()
         for (i in 1..numSections) {
-            rows.add(ContentAdapter.HeaderRow(Randomiser.date(), Randomiser.message()))
+            rows.add(ContentAdapter.HeaderRow(Randomiser.date(), Randomiser.word()))
             val numChildren = Randomiser.int(0, 10)
             for (j in 1..numChildren) {
                 if(Randomiser.int(0, 1) > 0) {

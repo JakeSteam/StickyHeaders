@@ -1,6 +1,7 @@
 package uk.co.jakelee.stickyheadersdemo
 
 import android.graphics.Color
+import java.text.SimpleDateFormat
 import java.util.*
 
 class Randomiser {
@@ -9,9 +10,16 @@ class Randomiser {
             return (min..max).shuffled().last()
         }
 
-        fun date(): String = Date(Math.abs(System.currentTimeMillis() - Random().nextLong())).toString()
+        fun date(): String {
+            val calendar = Calendar.getInstance()
+            calendar.add(Calendar.DAY_OF_YEAR, -int(0, 1000))
+            val format = SimpleDateFormat("dd/MM/yyyy")
+            return format.format(calendar.time)
+        }
 
-        fun message() = UUID.randomUUID().toString();
+        fun word() = ('a'..'z').map { it }.shuffled().subList(0, 8).joinToString("").capitalize()
+
+        fun message() = UUID.randomUUID().toString()
 
         fun colour(): Int {
             val rnd = Random()
