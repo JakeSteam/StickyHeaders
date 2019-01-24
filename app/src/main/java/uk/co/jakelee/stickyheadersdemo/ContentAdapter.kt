@@ -1,6 +1,7 @@
 package uk.co.jakelee.stickyheadersdemo
 
-import android.inputmethodservice.Keyboard
+import android.content.Context
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +14,7 @@ internal class ContentAdapter(private val rows: List<IRow>) : RecyclerView.Adapt
     interface IRow
     class HeaderRow(val date: String, val title: String) : IRow
     class MessageRow(val message: String) : IRow
-    class ColourRow(val colour: String) : IRow
+    class ColourRow(val colour: Int) : IRow
 
     class HeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val dateView: TextView = itemView.findViewById(R.id.date)
@@ -46,10 +47,10 @@ internal class ContentAdapter(private val rows: List<IRow>) : RecyclerView.Adapt
                 return HeaderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_header, parent, false))
             }
             TYPE_MESSAGE -> {
-                return HeaderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_message, parent, false))
+                return MessageViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_message, parent, false))
             }
             TYPE_COLOUR -> {
-                return HeaderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_colour, parent, false))
+                return ColourViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_colour, parent, false))
             }
             else -> throw IllegalArgumentException()
         }
@@ -75,8 +76,8 @@ internal class ContentAdapter(private val rows: List<IRow>) : RecyclerView.Adapt
     }
 
     private fun onBindColour(holder: RecyclerView.ViewHolder, row: ColourRow) {
-        val colourRow = holder as MessageViewHolder
-        colourRow.messageView.text = row.colour
+        val colourRow = holder as ColourViewHolder
+        colourRow.colourView.setBackgroundColor(row.colour)
     }
 
     companion object {
@@ -87,13 +88,13 @@ internal class ContentAdapter(private val rows: List<IRow>) : RecyclerView.Adapt
         fun getSampleRows(numSections: Int): List<IRow> {
             val rows = mutableListOf<IRow>()
             for (i in 1..numSections) {
-                rows.add(HeaderRow("2020/01/01", "title"))
-                val numChildren = (0..10).shuffled().last()
+                rows.add(HeaderRow(Randomiser.date(), Randomiser.message()))
+                val numChildren = Randomiser.int(0, 10)
                 for (j in 1..numChildren) {
-                    if((0..1).shuffled().last() > 0) {
-                        rows.add(MessageRow("test message"))
+                    if(Randomiser.int(0, 1) > 0) {
+                        rows.add(MessageRow(Randomiser.message()))
                     } else {
-                        rows.add(ColourRow("colour row"))
+                        rows.add(ColourRow(Randomiser.colour()))
                     }
                 }
             }
