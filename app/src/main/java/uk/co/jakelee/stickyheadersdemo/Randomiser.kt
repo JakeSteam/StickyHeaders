@@ -13,7 +13,7 @@ class Randomiser {
         fun date(): String {
             val calendar = Calendar.getInstance()
             calendar.add(Calendar.DAY_OF_YEAR, -int(0, 1000))
-            val format = SimpleDateFormat("dd/MM/yyyy")
+            val format = SimpleDateFormat("dd/MM/yyyy", Locale.UK)
             return format.format(calendar.time)
         }
 

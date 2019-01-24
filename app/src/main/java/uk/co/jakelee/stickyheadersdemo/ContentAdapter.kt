@@ -1,7 +1,5 @@
 package uk.co.jakelee.stickyheadersdemo
 
-import android.content.Context
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -44,15 +42,12 @@ class ContentAdapter(private val rows: List<IRow>) : RecyclerView.Adapter<Recycl
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
-            TYPE_HEADER -> {
-                return HeaderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_header, parent, false))
-            }
-            TYPE_MESSAGE -> {
-                return MessageViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_message, parent, false))
-            }
-            TYPE_COLOUR -> {
-                return ColourViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_colour, parent, false))
-            }
+            TYPE_HEADER -> return HeaderViewHolder(LayoutInflater.from(parent.context)
+                .inflate(R.layout.row_header, parent, false))
+            TYPE_MESSAGE -> return MessageViewHolder(LayoutInflater.from(parent.context)
+                .inflate(R.layout.row_message, parent, false))
+            TYPE_COLOUR -> return ColourViewHolder(LayoutInflater.from(parent.context)
+                .inflate(R.layout.row_colour, parent, false))
             else -> throw IllegalArgumentException()
         }
     }

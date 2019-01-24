@@ -11,7 +11,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        recyclerView.isNestedScrollingEnabled = true
         recyclerView.adapter = ContentAdapter(getSampleRows(10))
         recyclerView.visibility = View.VISIBLE
         recyclerView.layoutManager = StickyHeadersLinearLayoutManager<ContentAdapter>(this)
