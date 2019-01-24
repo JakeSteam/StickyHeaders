@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.jay.widget.StickyHeadersLinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
-import uk.co.jakelee.stickyheadersdemo.ContentAdapter.Companion.getSampleRows
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,5 +15,21 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = ContentAdapter(getSampleRows(10))
         recyclerView.visibility = View.VISIBLE
         recyclerView.layoutManager = StickyHeadersLinearLayoutManager<ContentAdapter>(this)
+    }
+
+    private fun getSampleRows(numSections: Int): List<ContentAdapter.IRow> {
+        val rows = mutableListOf<ContentAdapter.IRow>()
+        for (i in 1..numSections) {
+            rows.add(ContentAdapter.HeaderRow(Randomiser.date(), Randomiser.message()))
+            val numChildren = Randomiser.int(0, 10)
+            for (j in 1..numChildren) {
+                if(Randomiser.int(0, 1) > 0) {
+                    rows.add(ContentAdapter.MessageRow(Randomiser.message()))
+                } else {
+                    rows.add(ContentAdapter.ColourRow(Randomiser.colour()))
+                }
+            }
+        }
+        return rows
     }
 }

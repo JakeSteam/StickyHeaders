@@ -6,10 +6,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import com.jay.widget.StickyHeaders
 
-internal class ContentAdapter(private val rows: List<IRow>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), StickyHeaders {
+class ContentAdapter(private val rows: List<IRow>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), StickyHeaders {
 
     interface IRow
     class HeaderRow(val date: String, val title: String) : IRow
@@ -26,7 +27,7 @@ internal class ContentAdapter(private val rows: List<IRow>) : RecyclerView.Adapt
     }
 
     class ColourViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val colourView: TextView = itemView.findViewById(R.id.colour)
+        val colourView: ImageView = itemView.findViewById(R.id.colour)
     }
 
     override fun getItemCount() = rows.count()
@@ -84,21 +85,5 @@ internal class ContentAdapter(private val rows: List<IRow>) : RecyclerView.Adapt
         private const val TYPE_HEADER = 0
         private const val TYPE_MESSAGE = 1
         private const val TYPE_COLOUR = 2
-
-        fun getSampleRows(numSections: Int): List<IRow> {
-            val rows = mutableListOf<IRow>()
-            for (i in 1..numSections) {
-                rows.add(HeaderRow(Randomiser.date(), Randomiser.message()))
-                val numChildren = Randomiser.int(0, 10)
-                for (j in 1..numChildren) {
-                    if(Randomiser.int(0, 1) > 0) {
-                        rows.add(MessageRow(Randomiser.message()))
-                    } else {
-                        rows.add(ColourRow(Randomiser.colour()))
-                    }
-                }
-            }
-            return rows
-        }
     }
 }
