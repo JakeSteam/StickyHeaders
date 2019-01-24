@@ -9,3 +9,15 @@
 /build
 /captures
 .externalNativeBuild
+
+\.idea/codeStyles/codeStyleConfig\.xml
+
+\.idea/codeStyles/Project\.xml
+
+\.idea/encodings\.xml
+
+\.idea/gradle\.xml
+
+\.idea/misc\.xml
+
+\.idea/runConfigurations\.xml
