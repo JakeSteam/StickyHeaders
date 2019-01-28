@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         recyclerView.adapter = ContentAdapter(getSampleRows(10))
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = StickyHeadersLinearLayoutManager<ContentAdapter>(this)
     }
 
     private fun getSampleRows(numSections: Int): List<ContentAdapter.IRow> {

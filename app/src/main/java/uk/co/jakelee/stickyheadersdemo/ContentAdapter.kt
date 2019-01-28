@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.jay.widget.StickyHeaders
 
-class ContentAdapter(private val rows: List<IRow>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ContentAdapter(private val rows: List<IRow>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), StickyHeaders {
 
     interface IRow
     class HeaderRow(val date: String, val title: String) : IRow
@@ -29,6 +29,8 @@ class ContentAdapter(private val rows: List<IRow>) : RecyclerView.Adapter<Recycl
     }
 
     override fun getItemCount() = rows.count()
+
+    override fun isStickyHeader(position: Int) = rows[position] is HeaderRow
 
     override fun getItemViewType(position: Int): Int =
         when (rows[position]) {
