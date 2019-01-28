@@ -2,6 +2,7 @@ package uk.co.jakelee.stickyheadersdemo
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.jay.widget.StickyHeadersLinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
@@ -12,8 +13,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         recyclerView.adapter = ContentAdapter(getSampleRows(10))
-        recyclerView.visibility = View.VISIBLE
-        recyclerView.layoutManager = StickyHeadersLinearLayoutManager<ContentAdapter>(this)
+        recyclerView.layoutManager = LinearLayoutManager(this)
     }
 
     private fun getSampleRows(numSections: Int): List<ContentAdapter.IRow> {
