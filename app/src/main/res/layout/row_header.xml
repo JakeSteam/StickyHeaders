@@ -2,7 +2,6 @@
 <android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@android:color/black">
@@ -15,8 +14,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:paddingStart="10dp"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
-            tools:text="Row Title"/>
+            android:textSize="18sp"/>
     <TextView
             android:id="@+id/date"
             android:layout_width="wrap_content"
@@ -25,9 +23,8 @@
             app:layout_constraintStart_toEndOf="@id/title"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             android:paddingEnd="10dp"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
-            tools:text="01/01/2000" app:layout_constraintHorizontal_bias="1.0"/>
-
+            android:textSize="18sp"/>
 </android.support.constraint.ConstraintLayout>

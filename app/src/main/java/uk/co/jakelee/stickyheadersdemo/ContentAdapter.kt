@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.jay.widget.StickyHeaders
 
-class ContentAdapter(private val rows: List<IRow>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), StickyHeaders {
+class ContentAdapter(private val rows: List<IRow>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     interface IRow
     class HeaderRow(val date: String, val title: String) : IRow
@@ -30,8 +30,6 @@ class ContentAdapter(private val rows: List<IRow>) : RecyclerView.Adapter<Recycl
 
     override fun getItemCount() = rows.count()
 
-    override fun isStickyHeader(position: Int) = rows[position] is HeaderRow
-
     override fun getItemViewType(position: Int): Int =
         when (rows[position]) {
             is HeaderRow -> TYPE_HEADER
@@ -40,23 +38,21 @@ class ContentAdapter(private val rows: List<IRow>) : RecyclerView.Adapter<Recycl
             else -> throw IllegalArgumentException()
         }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        when (viewType) {
-            TYPE_HEADER -> return HeaderViewHolder(LayoutInflater.from(parent.context)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = when (viewType) {
+            TYPE_HEADER -> HeaderViewHolder(LayoutInflater.from(parent.context)
                 .inflate(R.layout.row_header, parent, false))
-            TYPE_MESSAGE -> return MessageViewHolder(LayoutInflater.from(parent.context)
+            TYPE_MESSAGE -> MessageViewHolder(LayoutInflater.from(parent.context)
                 .inflate(R.layout.row_message, parent, false))
-            TYPE_COLOUR -> return ColourViewHolder(LayoutInflater.from(parent.context)
+            TYPE_COLOUR -> ColourViewHolder(LayoutInflater.from(parent.context)
                 .inflate(R.layout.row_colour, parent, false))
             else -> throw IllegalArgumentException()
         }
-    }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
         when (holder.itemViewType) {
-            TYPE_HEADER -> onBindHeader(holder, rows[position] as HeaderRow)
-            TYPE_MESSAGE -> onBindMessage(holder, rows[position] as MessageRow)
-            TYPE_COLOUR -> onBindColour(holder, rows[position] as ColourRow)
+            TYPE_HEADER -> onBindHeader(holder, rows[position] as ContentAdapter.HeaderRow)
+            TYPE_MESSAGE -> onBindMessage(holder, rows[position] as ContentAdapter.MessageRow)
+            TYPE_COLOUR -> onBindColour(holder, rows[position] as ContentAdapter.ColourRow)
             else -> throw IllegalArgumentException()
         }
 
@@ -67,13 +63,11 @@ class ContentAdapter(private val rows: List<IRow>) : RecyclerView.Adapter<Recycl
     }
 
     private fun onBindMessage(holder: RecyclerView.ViewHolder, row: MessageRow) {
-        val messageRow = holder as MessageViewHolder
-        messageRow.messageView.text = row.message
+        (holder as MessageViewHolder).messageView.text = row.message
     }
 
     private fun onBindColour(holder: RecyclerView.ViewHolder, row: ColourRow) {
-        val colourRow = holder as ColourViewHolder
-        colourRow.colourView.setBackgroundColor(row.colour)
+        (holder as ColourViewHolder).colourView.setBackgroundColor(row.colour)
     }
 
     companion object {
